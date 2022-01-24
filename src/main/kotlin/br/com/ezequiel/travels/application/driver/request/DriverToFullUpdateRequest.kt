@@ -1,4 +1,4 @@
-package br.com.ezequiel.travels.application.driver.input
+package br.com.ezequiel.travels.application.driver.request
 
 import br.com.ezequiel.travels.domain.driver.model.DriverToFullUpdate
 import io.swagger.v3.oas.annotations.media.Schema
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Past
 import javax.validation.constraints.Size
 
-data class DriverToFullUpdateInput(
+data class DriverToFullUpdateRequest(
 
     @field:NotEmpty
     @field:Size(min = 5, max = 255)
@@ -23,7 +23,7 @@ data class DriverToFullUpdateInput(
 
 )
 
-fun DriverToFullUpdateInput.toModel(id: UUID) = DriverToFullUpdate(
+fun DriverToFullUpdateRequest.toModel(id: UUID) = DriverToFullUpdate(
 
     id = id,
     name = name,

@@ -1,10 +1,10 @@
-package br.com.ezequiel.travels.application.passenger
+package br.com.ezequiel.travels.application.passenger.rest
 
-import br.com.ezequiel.travels.application.passenger.input.PassengerToCreateInput
-import br.com.ezequiel.travels.application.passenger.input.PassengerToUpdateInput
-import br.com.ezequiel.travels.application.passenger.input.toModel
-import br.com.ezequiel.travels.application.passenger.output.PassengerOutput
-import br.com.ezequiel.travels.application.passenger.output.toOutput
+import br.com.ezequiel.travels.application.passenger.request.PassengerToCreateRequest
+import br.com.ezequiel.travels.application.passenger.request.PassengerToUpdateRequest
+import br.com.ezequiel.travels.application.passenger.request.toModel
+import br.com.ezequiel.travels.application.passenger.response.PassengerResponse
+import br.com.ezequiel.travels.application.passenger.response.toOutput
 import br.com.ezequiel.travels.domain.passenger.*
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -32,7 +32,7 @@ class PassengerController(
 
     @GetMapping
     @Operation(description = "List all available passengers")
-    fun listPassengers(): List<PassengerOutput> =
+    fun listPassengers(): List<PassengerResponse> =
         listAllPassengers.execute().stream().map { it.toOutput() }.collect(Collectors.toList())
 
     @GetMapping("/{id}")
@@ -42,13 +42,13 @@ class PassengerController(
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     @Operation(description = "Create a new passenger")
-    fun createPassenger(@Valid @RequestBody passengerToCreate: PassengerToCreateInput) =
+    fun createPassenger(@Valid @RequestBody passengerToCreate: PassengerToCreateRequest) =
         createPassenger.execute(passengerToCreate.toModel()).toOutput()
 
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(description = "Update a passenger by id")
-    fun updatePassenger(@PathVariable("id") id: UUID, @Valid @RequestBody passengerToUpdate: PassengerToUpdateInput) {
+    fun updatePassenger(@PathVariable("id") id: UUID, @Valid @RequestBody passengerToUpdate: PassengerToUpdateRequest) {
         updatePassenger.execute(passengerToUpdate.toModel(id))
     }
 

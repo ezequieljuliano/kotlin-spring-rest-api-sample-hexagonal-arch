@@ -1,4 +1,4 @@
-package br.com.ezequiel.travels.application.driver.input
+package br.com.ezequiel.travels.application.driver.request
 
 import br.com.ezequiel.travels.domain.driver.model.DriverToPartialUpdate
 import io.swagger.v3.oas.annotations.media.Schema
@@ -7,7 +7,7 @@ import java.util.*
 import javax.validation.constraints.Past
 import javax.validation.constraints.Size
 
-data class DriverToPartialUpdateInput(
+data class DriverToPartialUpdateRequest(
 
     @field:Size(min = 5, max = 255)
     @field:Schema(description = "Driver name")
@@ -19,7 +19,7 @@ data class DriverToPartialUpdateInput(
 
 )
 
-fun DriverToPartialUpdateInput.toModel(id: UUID) = DriverToPartialUpdate(
+fun DriverToPartialUpdateRequest.toModel(id: UUID) = DriverToPartialUpdate(
 
     id = id,
     name = name,

@@ -1,11 +1,11 @@
-package br.com.ezequiel.travels.application.passenger.input
+package br.com.ezequiel.travels.application.passenger.request
 
 import br.com.ezequiel.travels.domain.passenger.model.PassengerToCreate
 import io.swagger.v3.oas.annotations.media.Schema
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Size
 
-data class PassengerToCreateInput(
+data class PassengerToCreateRequest(
 
     @field:NotEmpty
     @field:Size(min = 5, max = 255)
@@ -14,7 +14,7 @@ data class PassengerToCreateInput(
 
 )
 
-fun PassengerToCreateInput.toModel() = PassengerToCreate(
+fun PassengerToCreateRequest.toModel() = PassengerToCreate(
 
     name = name
 

@@ -1,4 +1,4 @@
-package br.com.ezequiel.travels.infrastracture.repository.passenger.entity
+package br.com.ezequiel.travels.infrastracture.repository.passenger.jpa.entity
 
 import br.com.ezequiel.travels.domain.passenger.model.Passenger
 import java.util.*

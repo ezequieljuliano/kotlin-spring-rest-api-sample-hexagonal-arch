@@ -1,11 +1,11 @@
-package br.com.ezequiel.travels.application.driver.output
+package br.com.ezequiel.travels.application.driver.response
 
 import br.com.ezequiel.travels.domain.driver.model.Driver
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDate
 import java.util.*
 
-data class DriverOutput(
+data class DriverResponse(
 
     @field:Schema(description = "Driver identifier")
     val id: UUID,
@@ -18,7 +18,7 @@ data class DriverOutput(
 
 )
 
-fun Driver.toOutput() = DriverOutput(
+fun Driver.toOutput() = DriverResponse(
 
     id = id,
     name = name,
