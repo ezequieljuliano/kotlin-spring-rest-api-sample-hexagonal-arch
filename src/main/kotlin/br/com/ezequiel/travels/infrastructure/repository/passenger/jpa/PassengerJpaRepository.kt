@@ -1,10 +1,10 @@
-package br.com.ezequiel.travels.infrastracture.repository.passenger.jpa
+package br.com.ezequiel.travels.infrastructure.repository.passenger.jpa
 
 import br.com.ezequiel.travels.domain.passenger.model.Passenger
 import br.com.ezequiel.travels.domain.passenger.repository.PassengerRepository
-import br.com.ezequiel.travels.infrastracture.repository.passenger.jpa.entity.toEntity
-import br.com.ezequiel.travels.infrastracture.repository.passenger.jpa.entity.toModel
-import br.com.ezequiel.travels.infrastracture.repository.passenger.jpa.provider.SpringDataPassengerProvider
+import br.com.ezequiel.travels.infrastructure.repository.passenger.jpa.entity.toEntity
+import br.com.ezequiel.travels.infrastructure.repository.passenger.jpa.entity.toModel
+import br.com.ezequiel.travels.infrastructure.repository.passenger.jpa.provider.SpringDataPassengerProvider
 import org.springframework.stereotype.Component
 import java.util.*
 import java.util.stream.Collectors

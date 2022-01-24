@@ -1,6 +1,6 @@
-package br.com.ezequiel.travels.infrastracture.repository.driver.jpa.provider
+package br.com.ezequiel.travels.infrastructure.repository.driver.jpa.provider
 
-import br.com.ezequiel.travels.infrastracture.repository.driver.jpa.entity.DriverEntity
+import br.com.ezequiel.travels.infrastructure.repository.driver.jpa.entity.DriverEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*

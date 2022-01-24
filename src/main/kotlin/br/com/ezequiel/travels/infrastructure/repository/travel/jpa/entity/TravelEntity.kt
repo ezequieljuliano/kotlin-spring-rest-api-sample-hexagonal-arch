@@ -1,4 +1,4 @@
-package br.com.ezequiel.travels.infrastracture.repository.travel.jpa.entity
+package br.com.ezequiel.travels.infrastructure.repository.travel.jpa.entity
 
 import br.com.ezequiel.travels.domain.travel.model.Travel
 import br.com.ezequiel.travels.domain.travel.model.TravelDriver

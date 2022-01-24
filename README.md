@@ -22,6 +22,20 @@ This project also proposes to practice test pyramid concepts and understand how 
 * Containers
 * Hexagonal architecture
 
+### Hexagonal Architecture Principles
+Firstly, we should define principles to divide our code. As explained briefly already, hexagonal architecture defines the inside and the outside part.
+What we'll do instead is divide our application into three layers: application (outside), domain (inside), and infrastructure (outside):
+
+![Hexagonal Architecture Principles](./images/hexagonal-arch-principles.png)
+
+Through the application layer, the user or any other program interacts with the application. This area should contain things like user interfaces, RESTful controllers, and JSON serialization libraries. It includes anything that exposes entry to our application and orchestrates the execution of domain logic.
+In the domain layer, we keep the code that touches and implements business logic. This is the core of our application. Additionally, this layer should be isolated from both the application part and the infrastructure part. On top of that, it should also contain interfaces that define the API to communicate with external parts, like the database, which the domain interacts with.
+Lastly, the infrastructure layer is the part that contains anything that the application needs to work such as database configuration or Spring configuration. Besides, it also implements infrastructure-dependent interfaces from the domain layer.
+
+To make it easier, let's see a perspective of the feature of creating a passenger:
+
+![Create Passenger - Hexagonal Architecture Principles](./images/create-passenger-hexagonal-arch-principles.png)
+
 ### API Documentation
 The project is documented by springdoc-openapi-ui, so just access the following address:
 ```

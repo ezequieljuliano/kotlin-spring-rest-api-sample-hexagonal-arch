@@ -1,4 +1,4 @@
-package br.com.ezequiel.travels.infrastracture.repository.driver.jpa.entity
+package br.com.ezequiel.travels.infrastructure.repository.driver.jpa.entity
 
 import br.com.ezequiel.travels.domain.driver.model.Driver
 import java.time.LocalDate

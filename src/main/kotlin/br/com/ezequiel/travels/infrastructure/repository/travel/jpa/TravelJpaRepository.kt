@@ -1,11 +1,11 @@
-package br.com.ezequiel.travels.infrastracture.repository.travel.jpa
+package br.com.ezequiel.travels.infrastructure.repository.travel.jpa
 
 import br.com.ezequiel.travels.domain.travel.model.Travel
 import br.com.ezequiel.travels.domain.travel.model.TravelStatus
 import br.com.ezequiel.travels.domain.travel.repository.TravelRepository
-import br.com.ezequiel.travels.infrastracture.repository.travel.jpa.entity.toEntity
-import br.com.ezequiel.travels.infrastracture.repository.travel.jpa.entity.toModel
-import br.com.ezequiel.travels.infrastracture.repository.travel.jpa.provider.SpringDataTravelProvider
+import br.com.ezequiel.travels.infrastructure.repository.travel.jpa.entity.toEntity
+import br.com.ezequiel.travels.infrastructure.repository.travel.jpa.entity.toModel
+import br.com.ezequiel.travels.infrastructure.repository.travel.jpa.provider.SpringDataTravelProvider
 import org.springframework.stereotype.Component
 import java.util.*
 import java.util.stream.Collectors
