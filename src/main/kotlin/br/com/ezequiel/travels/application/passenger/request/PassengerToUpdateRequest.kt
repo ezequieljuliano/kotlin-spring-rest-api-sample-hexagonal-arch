@@ -16,8 +16,6 @@ data class PassengerToUpdateRequest(
 )
 
 fun PassengerToUpdateRequest.toModel(id: UUID) = PassengerToUpdate(
-
     id = id,
     name = name
-
 )

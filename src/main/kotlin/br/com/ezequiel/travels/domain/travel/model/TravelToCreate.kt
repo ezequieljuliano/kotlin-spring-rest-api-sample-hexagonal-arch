@@ -10,13 +10,11 @@ data class TravelToCreate(
 
 )
 
-fun TravelToCreate.toTravel() = Travel(
-
-    id = UUID.randomUUID(),
+fun TravelToCreate.toTravel(passenger: TravelPassenger) = Travel(
+    id = null,
     origin = origin,
     destination = destination,
-    passenger = TravelPassenger(passengerId, ""),
+    passenger = passenger,
     driver = null,
     status = TravelStatus.CREATED
-
 )

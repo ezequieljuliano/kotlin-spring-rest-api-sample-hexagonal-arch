@@ -13,7 +13,7 @@ data class PassengerEntity(
     @field:Id
     @field:GeneratedValue
     @field:Column(columnDefinition = "uuid", name = "psg_id", updatable = false)
-    val id: UUID = UUID.randomUUID(),
+    val id: UUID?,
 
     @field:NotEmpty
     @field:Size(min = 5, max = 255)
@@ -23,15 +23,11 @@ data class PassengerEntity(
 )
 
 fun Passenger.toEntity() = PassengerEntity(
-
     id = id,
     name = name
-
 )
 
 fun PassengerEntity.toModel() = Passenger(
-
     id = id,
     name = name
-
 )

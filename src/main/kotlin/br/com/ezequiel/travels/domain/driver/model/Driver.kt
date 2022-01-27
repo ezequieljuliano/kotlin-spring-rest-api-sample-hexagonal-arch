@@ -5,7 +5,7 @@ import java.util.UUID
 
 data class Driver(
 
-    val id: UUID,
+    val id: UUID?,
     val name: String,
     val birthdate: LocalDate
 

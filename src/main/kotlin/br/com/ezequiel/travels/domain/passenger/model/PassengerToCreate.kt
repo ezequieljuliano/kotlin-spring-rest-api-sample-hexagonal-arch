@@ -1,7 +1,5 @@
 package br.com.ezequiel.travels.domain.passenger.model
 
-import java.util.*
-
 data class PassengerToCreate(
 
     val name: String
@@ -9,8 +7,6 @@ data class PassengerToCreate(
 )
 
 fun PassengerToCreate.toPassenger() = Passenger(
-
-    id = UUID.randomUUID(),
+    id = null,
     name = name
-
 )

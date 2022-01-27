@@ -16,7 +16,7 @@ class GetDriverServiceTest {
     private val driverRepository: DriverRepository = mockk(relaxed = true)
     private val subject = GetDriverService(driverRepository)
     private val mockedDriver = Driver(UUID.randomUUID(), "Jon Snow", LocalDate.MIN)
-    private val driverId = mockedDriver.id
+    private val driverId = mockedDriver.id!!
 
     @Test
     fun whenGetDriverThenReturnDriverSuccessfully() {

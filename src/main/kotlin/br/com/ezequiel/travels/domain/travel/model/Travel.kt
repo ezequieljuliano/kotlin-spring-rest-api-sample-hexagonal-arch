@@ -4,7 +4,7 @@ import java.util.*
 
 data class Travel(
 
-    val id: UUID,
+    val id: UUID?,
     val origin: String,
     val destination: String,
     val passenger: TravelPassenger,

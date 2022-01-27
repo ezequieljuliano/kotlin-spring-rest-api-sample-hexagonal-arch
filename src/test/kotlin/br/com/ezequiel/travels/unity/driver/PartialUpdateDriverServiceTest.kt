@@ -17,7 +17,7 @@ class PartialUpdateDriverServiceTest {
     private val driverRepository: DriverRepository = mockk(relaxed = true)
     private val subject = PartialUpdateDriverService(driverRepository)
     private val oldMockedDriver = Driver(UUID.randomUUID(), "Jon Snow", LocalDate.MIN)
-    private val updatedAllPropertiesMockDriver = Driver(oldMockedDriver.id, "Arya Stark", LocalDate.MAX)
+    private val updatedAllPropertiesMockDriver = Driver(oldMockedDriver.id!!, "Arya Stark", LocalDate.MAX)
     private val updatedNameMockDriver = Driver(oldMockedDriver.id, "Arya Stark", LocalDate.MIN)
     private val updatedBirthdateMockDriver = Driver(oldMockedDriver.id, "Jon Snow", LocalDate.MAX)
 
@@ -25,11 +25,11 @@ class PartialUpdateDriverServiceTest {
     fun whenAllPropertiesPartialUpdateDriverThenReturnUpdatedDriver() {
         // given
         val updatedDriver = DriverToPartialUpdate(
-            updatedAllPropertiesMockDriver.id,
+            updatedAllPropertiesMockDriver.id!!,
             updatedAllPropertiesMockDriver.name,
             updatedAllPropertiesMockDriver.birthdate
         )
-        every { driverRepository.getById(oldMockedDriver.id) } returns oldMockedDriver
+        every { driverRepository.getById(oldMockedDriver.id!!) } returns oldMockedDriver
         every { driverRepository.save(any()) } returns updatedAllPropertiesMockDriver
 
         // when
@@ -39,7 +39,7 @@ class PartialUpdateDriverServiceTest {
         Assertions.assertEquals(updatedAllPropertiesMockDriver.id, result.id)
         Assertions.assertEquals(updatedAllPropertiesMockDriver.name, result.name)
         Assertions.assertEquals(updatedAllPropertiesMockDriver.birthdate, result.birthdate)
-        verify(exactly = 1) { driverRepository.getById(oldMockedDriver.id) }
+        verify(exactly = 1) { driverRepository.getById(oldMockedDriver.id!!) }
         verify(exactly = 1) { driverRepository.save(any()) }
     }
 
@@ -47,11 +47,11 @@ class PartialUpdateDriverServiceTest {
     fun whenNamePartialUpdateDriverThenReturnUpdatedDriver() {
         // given
         val updatedDriver = DriverToPartialUpdate(
-            updatedNameMockDriver.id,
+            updatedNameMockDriver.id!!,
             updatedNameMockDriver.name,
             null
         )
-        every { driverRepository.getById(oldMockedDriver.id) } returns oldMockedDriver
+        every { driverRepository.getById(oldMockedDriver.id!!) } returns oldMockedDriver
         every { driverRepository.save(any()) } returns updatedNameMockDriver
 
         // when
@@ -61,7 +61,7 @@ class PartialUpdateDriverServiceTest {
         Assertions.assertEquals(updatedNameMockDriver.id, result.id)
         Assertions.assertEquals(updatedNameMockDriver.name, result.name)
         Assertions.assertEquals(updatedNameMockDriver.birthdate, result.birthdate)
-        verify(exactly = 1) { driverRepository.getById(oldMockedDriver.id) }
+        verify(exactly = 1) { driverRepository.getById(oldMockedDriver.id!!) }
         verify(exactly = 1) { driverRepository.save(any()) }
     }
 
@@ -69,11 +69,11 @@ class PartialUpdateDriverServiceTest {
     fun whenBirthdatePartialUpdateDriverThenReturnUpdatedDriver() {
         // given
         val updatedDriver = DriverToPartialUpdate(
-            updatedBirthdateMockDriver.id,
+            updatedBirthdateMockDriver.id!!,
             null,
             updatedBirthdateMockDriver.birthdate
         )
-        every { driverRepository.getById(oldMockedDriver.id) } returns oldMockedDriver
+        every { driverRepository.getById(oldMockedDriver.id!!) } returns oldMockedDriver
         every { driverRepository.save(any()) } returns updatedBirthdateMockDriver
 
         // when
@@ -83,7 +83,7 @@ class PartialUpdateDriverServiceTest {
         Assertions.assertEquals(updatedBirthdateMockDriver.id, result.id)
         Assertions.assertEquals(updatedBirthdateMockDriver.name, result.name)
         Assertions.assertEquals(updatedBirthdateMockDriver.birthdate, result.birthdate)
-        verify(exactly = 1) { driverRepository.getById(oldMockedDriver.id) }
+        verify(exactly = 1) { driverRepository.getById(oldMockedDriver.id!!) }
         verify(exactly = 1) { driverRepository.save(any()) }
     }
 

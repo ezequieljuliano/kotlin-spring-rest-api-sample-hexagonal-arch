@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import java.time.LocalDate
-import java.util.*
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -28,7 +27,7 @@ class DriverRepositoryTest {
     @Test
     fun whenSaveDriverThenReturnSavedDriver() {
         // given
-        val driver = Driver(UUID.randomUUID(), "Jon Snow", LocalDate.ofEpochDay(0))
+        val driver = Driver(null, "Jon Snow", LocalDate.ofEpochDay(0))
 
         // when
         val result = subject.save(driver)
@@ -41,8 +40,8 @@ class DriverRepositoryTest {
     @Test
     fun whenDeleteByIdDriverThenSuccessfullyDeleteDriver() {
         // given
-        val driver = Driver(UUID.randomUUID(), "Jon Snow", LocalDate.ofEpochDay(0))
-        val driverId = subject.save(driver).id
+        val driver = Driver(null, "Jon Snow", LocalDate.ofEpochDay(0))
+        val driverId = subject.save(driver).id ?: throw RuntimeException("DriverId is null")
 
         // when
         subject.deleteById(driverId)
@@ -54,8 +53,8 @@ class DriverRepositoryTest {
     @Test
     fun whenGetByIdDriverThenReturnDriver() {
         // given
-        val driver = Driver(UUID.randomUUID(), "Jon Snow", LocalDate.ofEpochDay(0))
-        val driverId = subject.save(driver).id
+        val driver = Driver(null, "Jon Snow", LocalDate.ofEpochDay(0))
+        val driverId = subject.save(driver).id ?: throw RuntimeException("DriverId is null")
 
         // when
         val result = subject.getById(driverId)
@@ -68,9 +67,11 @@ class DriverRepositoryTest {
 
     @Test
     fun whenFindAllDriversThenReturnAllDrivers() {
+        subject.deleteAll()
+
         // given
-        subject.save(Driver(UUID.randomUUID(), "Jon Snow", LocalDate.ofEpochDay(0)))
-        subject.save(Driver(UUID.randomUUID(), "Arya Stark", LocalDate.ofEpochDay(0)))
+        subject.save(Driver(null, "Jon Snow", LocalDate.ofEpochDay(0)))
+        subject.save(Driver(null, "Arya Stark", LocalDate.ofEpochDay(0)))
 
         // when
         val result = subject.findAll()

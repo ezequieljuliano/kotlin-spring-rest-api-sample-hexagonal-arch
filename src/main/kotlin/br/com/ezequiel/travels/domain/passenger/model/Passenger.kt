@@ -4,7 +4,7 @@ import java.util.*
 
 data class Passenger(
 
-    val id: UUID,
+    val id: UUID?,
     val name: String
 
 )

@@ -15,8 +15,6 @@ data class PassengerResponse(
 )
 
 fun Passenger.toOutput() = PassengerResponse(
-
-    id = id,
+    id = id!!,
     name = name
-
 )

@@ -20,7 +20,7 @@ data class TravelEntity(
     @field:Id
     @field:GeneratedValue
     @field:Column(columnDefinition = "uuid", name = "trv_id", updatable = false)
-    val id: UUID = UUID.randomUUID(),
+    val id: UUID?,
 
     @field:NotEmpty
     @field:Size(min = 5, max = 255)
@@ -60,7 +60,7 @@ data class TravelEntity(
 data class TravelPassengerEntity(
 
     @field:Id
-    @field:Column(columnDefinition = "uuid", name = "psg_id", updatable = false)
+    @field:Column(name = "psg_id")
     val id: UUID,
 
     @field:Column(name = "psg_name")
@@ -74,7 +74,7 @@ data class TravelPassengerEntity(
 data class TravelDriverEntity(
 
     @field:Id
-    @field:Column(columnDefinition = "uuid", name = "drv_id", updatable = false)
+    @field:Column(name = "drv_id")
     val id: UUID,
 
     @field:Column(name = "drv_name")
@@ -83,22 +83,18 @@ data class TravelDriverEntity(
 )
 
 fun Travel.toEntity() = TravelEntity(
-
     id = id,
     origin = origin,
     destination = destination,
     passenger = TravelPassengerEntity(passenger.id, passenger.name),
     driver = driver?.let { TravelDriverEntity(it.id, it.name) }
-
 )
 
 fun TravelEntity.toModel() = Travel(
-
     id = id,
     origin = origin,
     destination = destination,
     passenger = TravelPassenger(passenger.id, passenger.name),
     driver = driver?.let { TravelDriver(it.id, it.name) },
     status = status
-
 )

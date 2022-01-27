@@ -16,11 +16,7 @@ import java.util.stream.Collectors
 import javax.validation.Valid
 
 @RestController
-@RequestMapping(
-    path = ["/passengers"],
-    produces = [MediaType.APPLICATION_JSON_VALUE],
-    consumes = [MediaType.APPLICATION_JSON_VALUE]
-)
+@RequestMapping("/passengers")
 @Tag(name = "Passengers API", description = "Manage passenger data")
 class PassengerController(
     private val createPassenger: CreatePassenger,
@@ -30,22 +26,22 @@ class PassengerController(
     private val deletePassenger: DeletePassenger
 ) {
 
-    @GetMapping
+    @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(description = "List all available passengers")
     fun listPassengers(): List<PassengerResponse> =
         listAllPassengers.execute().stream().map { it.toOutput() }.collect(Collectors.toList())
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(description = "Returns a passenger by id")
     fun getPassenger(@PathVariable("id") id: UUID) = getPassenger.execute(id).toOutput()
 
-    @PostMapping
+    @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseStatus(code = HttpStatus.CREATED)
     @Operation(description = "Create a new passenger")
     fun createPassenger(@Valid @RequestBody passengerToCreate: PassengerToCreateRequest) =
         createPassenger.execute(passengerToCreate.toModel()).toOutput()
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(description = "Update a passenger by id")
     fun updatePassenger(@PathVariable("id") id: UUID, @Valid @RequestBody passengerToUpdate: PassengerToUpdateRequest) {

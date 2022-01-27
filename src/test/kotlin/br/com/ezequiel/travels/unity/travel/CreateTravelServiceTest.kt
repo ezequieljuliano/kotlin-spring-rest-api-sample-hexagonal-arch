@@ -1,5 +1,7 @@
 package br.com.ezequiel.travels.unity.travel
 
+import br.com.ezequiel.travels.domain.passenger.model.Passenger
+import br.com.ezequiel.travels.domain.passenger.repository.PassengerRepository
 import br.com.ezequiel.travels.domain.travel.model.Travel
 import br.com.ezequiel.travels.domain.travel.model.TravelPassenger
 import br.com.ezequiel.travels.domain.travel.model.TravelStatus
@@ -16,10 +18,12 @@ import java.util.*
 class CreateTravelServiceTest {
 
     private val travelRepository: TravelRepository = mockk(relaxed = true)
-    private val subject = CreateTravelService(travelRepository)
-    private val mockedPassenger = TravelPassenger(UUID.randomUUID(), "Ezequiel")
+    private val passengerRepository: PassengerRepository = mockk(relaxed = true)
+    private val subject = CreateTravelService(travelRepository, passengerRepository)
+    private val mockedPassenger = Passenger(UUID.randomUUID(), "Ezequiel")
+    private val mockedTravelPassenger = TravelPassenger(mockedPassenger.id!!, mockedPassenger.name)
     private val mockedTravel = Travel(
-        UUID.randomUUID(), "Origin", "Destination", mockedPassenger, TravelStatus.CREATED, null
+        UUID.randomUUID(), "Origin", "Destination", mockedTravelPassenger, TravelStatus.CREATED, null
     )
 
     @Test
@@ -29,6 +33,7 @@ class CreateTravelServiceTest {
             mockedTravel.origin, mockedTravel.destination, mockedTravel.passenger.id
         )
         every { travelRepository.save(any()) } returns mockedTravel
+        every { passengerRepository.getById(any()) } returns mockedPassenger
 
         // when
         val result = subject.execute(newTravel)

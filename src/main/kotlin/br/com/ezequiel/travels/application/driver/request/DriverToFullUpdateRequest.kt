@@ -24,9 +24,7 @@ data class DriverToFullUpdateRequest(
 )
 
 fun DriverToFullUpdateRequest.toModel(id: UUID) = DriverToFullUpdate(
-
     id = id,
     name = name,
     birthdate = birthdate
-
 )

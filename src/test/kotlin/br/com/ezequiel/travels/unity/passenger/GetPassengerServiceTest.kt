@@ -15,7 +15,7 @@ class GetPassengerServiceTest {
     private val passengerRepository: PassengerRepository = mockk(relaxed = true)
     private val subject = GetPassengerService(passengerRepository)
     private val mockedPassenger = Passenger(UUID.randomUUID(), "Jon Snow")
-    private val passengerId = mockedPassenger.id
+    private val passengerId = mockedPassenger.id!!
 
     @Test
     fun whenGetPassengerThenReturnPassengerSuccessfully() {

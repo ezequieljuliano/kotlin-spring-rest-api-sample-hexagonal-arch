@@ -21,8 +21,8 @@ class UpdatePassengerServiceTest {
     @Test
     fun whenFullUpdatePassengerThenReturnUpdatedPassenger() {
         // given
-        val updatedPassenger = PassengerToUpdate(updatedMockPassenger.id, updatedMockPassenger.name)
-        every { passengerRepository.getById(oldMockedPassenger.id) } returns oldMockedPassenger
+        val updatedPassenger = PassengerToUpdate(updatedMockPassenger.id!!, updatedMockPassenger.name)
+        every { passengerRepository.getById(oldMockedPassenger.id!!) } returns oldMockedPassenger
         every { passengerRepository.save(any()) } returns updatedMockPassenger
 
         // when
@@ -31,7 +31,7 @@ class UpdatePassengerServiceTest {
         // then
         Assertions.assertEquals(updatedMockPassenger.id, result.id)
         Assertions.assertEquals(updatedMockPassenger.name, result.name)
-        verify(exactly = 1) { passengerRepository.getById(oldMockedPassenger.id) }
+        verify(exactly = 1) { passengerRepository.getById(oldMockedPassenger.id!!) }
         verify(exactly = 1) { passengerRepository.save(any()) }
     }
 

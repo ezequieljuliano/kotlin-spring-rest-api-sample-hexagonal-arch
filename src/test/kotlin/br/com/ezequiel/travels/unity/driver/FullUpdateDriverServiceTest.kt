@@ -22,8 +22,8 @@ class FullUpdateDriverServiceTest {
     @Test
     fun whenFullUpdateDriverThenReturnUpdatedDriver() {
         // given
-        val updatedDriver = DriverToFullUpdate(updatedMockDriver.id, updatedMockDriver.name, updatedMockDriver.birthdate)
-        every { driverRepository.getById(oldMockedDriver.id) } returns oldMockedDriver
+        val updatedDriver = DriverToFullUpdate(updatedMockDriver.id!!, updatedMockDriver.name, updatedMockDriver.birthdate)
+        every { driverRepository.getById(oldMockedDriver.id!!) } returns oldMockedDriver
         every { driverRepository.save(any()) } returns updatedMockDriver
 
         // when
@@ -33,7 +33,7 @@ class FullUpdateDriverServiceTest {
         Assertions.assertEquals(updatedMockDriver.id, result.id)
         Assertions.assertEquals(updatedMockDriver.name, result.name)
         Assertions.assertEquals(updatedMockDriver.birthdate, result.birthdate)
-        verify(exactly = 1) { driverRepository.getById(oldMockedDriver.id) }
+        verify(exactly = 1) { driverRepository.getById(oldMockedDriver.id!!) }
         verify(exactly = 1) { driverRepository.save(any()) }
     }
 

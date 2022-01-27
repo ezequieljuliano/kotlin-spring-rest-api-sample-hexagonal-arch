@@ -1,10 +1,10 @@
-package br.com.ezequiel.travels.application.travel.output
+package br.com.ezequiel.travels.application.travel.response
 
 import br.com.ezequiel.travels.domain.travel.model.Travel
 import io.swagger.v3.oas.annotations.media.Schema
 import java.util.*
 
-data class TravelOutput(
+data class TravelResponse(
 
     @field:Schema(description = "Travel request identifier")
     val id: UUID,
@@ -16,15 +16,13 @@ data class TravelOutput(
     val destination: String,
 
     @field:Schema(description = "Travel request passenger")
-    val passenger: TravelPassengerOutput
+    val passenger: TravelPassengerResponse
 
 )
 
-fun Travel.toOutput() = TravelOutput(
-
-    id = id,
+fun Travel.toOutput() = TravelResponse(
+    id = id!!,
     origin = origin,
     destination = destination,
-    passenger = TravelPassengerOutput(passenger.id, passenger.name)
-
+    passenger = TravelPassengerResponse(passenger.id, passenger.name)
 )

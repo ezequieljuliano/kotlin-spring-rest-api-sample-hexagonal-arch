@@ -18,7 +18,7 @@ class TravelJpaRepository(private val springDataTravelProvider: SpringDataTravel
     override fun getById(travelId: UUID) = springDataTravelProvider.getById(travelId).toModel()
 
     override fun findByStatus(status: TravelStatus): List<Travel> =
-        springDataTravelProvider.findAll().stream().map { it.toModel() }.collect(Collectors.toList())
+        springDataTravelProvider.findByStatus(status).stream().map { it.toModel() }.collect(Collectors.toList())
 
     override fun deleteAll(): Unit = springDataTravelProvider.deleteAll()
 

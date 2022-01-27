@@ -15,7 +15,6 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
 import java.time.LocalDate
-import java.util.*
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase
@@ -56,7 +55,7 @@ class DriverControllerTest {
 
     @Test
     fun whenFullUpdateDriverThenReturnStatusNoContent() {
-        val driverId = driverRepository.save(Driver(UUID.randomUUID(), "Ezequiel", LocalDate.ofEpochDay(0))).id
+        val driverId = driverRepository.save(Driver(null, "Ezequiel", LocalDate.ofEpochDay(0))).id
         val updateDriverJson = """{"name":"Juliano","birthdate":"1987-10-15"}"""
         RestAssured
             .given()
@@ -69,7 +68,7 @@ class DriverControllerTest {
 
     @Test
     fun whenPartialUpdateDriverThenReturnStatusNoContent() {
-        val driverId = driverRepository.save(Driver(UUID.randomUUID(), "Ezequiel", LocalDate.ofEpochDay(0))).id
+        val driverId = driverRepository.save(Driver(null, "Ezequiel", LocalDate.ofEpochDay(0))).id
         val updateDriverJson = """{"name":"Juliano"}"""
         RestAssured
             .given()
@@ -82,7 +81,7 @@ class DriverControllerTest {
 
     @Test
     fun whenDeleteDriverThenReturnStatusNoContent() {
-        val driverId = driverRepository.save(Driver(UUID.randomUUID(), "Ezequiel", LocalDate.ofEpochDay(0))).id
+        val driverId = driverRepository.save(Driver(null, "Ezequiel", LocalDate.ofEpochDay(0))).id
         RestAssured
             .given()
             .contentType(ContentType.JSON)
@@ -93,7 +92,7 @@ class DriverControllerTest {
 
     @Test
     fun whenGetDriverThenReturnStatusOkAndResponseBody() {
-        val driverId = driverRepository.save(Driver(UUID.randomUUID(), "Ezequiel", LocalDate.ofEpochDay(0))).id
+        val driverId = driverRepository.save(Driver(null, "Ezequiel", LocalDate.ofEpochDay(0))).id
         RestAssured
             .given()
             .contentType(ContentType.JSON)
@@ -107,7 +106,7 @@ class DriverControllerTest {
 
     @Test
     fun whenListDriversThenReturnStatusOkAndResponseBody() {
-        driverRepository.save(Driver(UUID.randomUUID(), "Ezequiel", LocalDate.ofEpochDay(0)))
+        driverRepository.save(Driver(null, "Ezequiel", LocalDate.ofEpochDay(0)))
         RestAssured
             .given()
             .contentType(ContentType.JSON)

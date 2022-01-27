@@ -1,6 +1,6 @@
 version: '3'
 services:
-  addresses-app:
+  travels-app:
     image: ezequiel/travels-api-app
     ports:
       - "8080:8080"
@@ -9,6 +9,6 @@ services:
   travels-postgres-db:
     image: postgres:10.4
     environment:
-      - POSTGRES_DB=travels
+      - POSTGRES_DB=travel_requests
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

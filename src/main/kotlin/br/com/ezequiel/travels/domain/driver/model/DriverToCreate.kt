@@ -1,7 +1,6 @@
 package br.com.ezequiel.travels.domain.driver.model
 
 import java.time.LocalDate
-import java.util.*
 
 data class DriverToCreate(
 
@@ -11,9 +10,7 @@ data class DriverToCreate(
 )
 
 fun DriverToCreate.toDriver() = Driver(
-
-    id = UUID.randomUUID(),
+    id = null,
     name = name,
     birthdate = birthdate
-
 )

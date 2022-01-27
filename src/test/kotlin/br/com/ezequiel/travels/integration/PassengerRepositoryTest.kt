@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
-import java.util.*
 
 @SpringBootTest
 @AutoConfigureTestDatabase
@@ -27,7 +26,7 @@ class PassengerRepositoryTest {
     @Test
     fun whenSavePassengerThenReturnSavedPassenger() {
         // given
-        val passenger = Passenger(UUID.randomUUID(), "Jon Snow")
+        val passenger = Passenger(null, "Jon Snow")
 
         // when
         val result = subject.save(passenger)
@@ -39,35 +38,37 @@ class PassengerRepositoryTest {
     @Test
     fun whenDeleteByIdPassengerThenSuccessfullyDeletePassenger() {
         // given
-        val passenger = Passenger(UUID.randomUUID(), "Jon Snow")
-        val driverId = subject.save(passenger).id
+        val passenger = Passenger(null, "Jon Snow")
+        val passengerId = subject.save(passenger).id ?: throw RuntimeException("PassengerId is null")
 
         // when
-        subject.deleteById(driverId)
+        subject.deleteById(passengerId)
 
         // then
-        Assertions.assertFalse(subject.existsById(driverId))
+        Assertions.assertFalse(subject.existsById(passengerId))
     }
 
     @Test
     fun whenGetByIdPassengerThenReturnPassenger() {
         // given
-        val passenger = Passenger(UUID.randomUUID(), "Jon Snow")
-        val id = subject.save(passenger).id
+        val passenger = Passenger(null, "Jon Snow")
+        val passengerId = subject.save(passenger).id ?: throw RuntimeException("PassengerId is null")
 
         // when
-        val result = subject.getById(id)
+        val result = subject.getById(passengerId)
 
         // then
-        Assertions.assertEquals(id, result.id)
+        Assertions.assertEquals(passengerId, result.id)
         Assertions.assertEquals("Jon Snow", result.name)
     }
 
     @Test
     fun whenFindAllPassengersThenReturnAllPassengers() {
+        subject.deleteAll()
+
         // given
-        subject.save(Passenger(UUID.randomUUID(), "Jon Snow"))
-        subject.save(Passenger(UUID.randomUUID(), "Arya Stark"))
+        subject.save(Passenger(null, "Jon Snow"))
+        subject.save(Passenger(null, "Arya Stark"))
 
         // when
         val result = subject.findAll()

@@ -34,9 +34,9 @@ class TravelRepositoryTest {
     @Test
     fun whenSaveTravelThenReturnSavedTravel() {
         // given
-        val passenger = passengerRepository.save(Passenger(UUID.randomUUID(), "Jon Snow"))
-        val travelPassenger = TravelPassenger(passenger.id, passenger.name)
-        val travel = Travel(UUID.randomUUID(), "Origin", "Destination", travelPassenger, TravelStatus.CREATED, null)
+        val passenger = passengerRepository.save(Passenger(null, "Jon Snow"))
+        val travelPassenger = TravelPassenger(passenger.id!!, passenger.name)
+        val travel = Travel(null, "Origin", "Destination", travelPassenger, TravelStatus.CREATED, null)
 
         // when
         val result = subject.save(travel)
@@ -50,16 +50,16 @@ class TravelRepositoryTest {
     @Test
     fun whenGetByIdTravelThenReturnTravel() {
         // given
-        val passenger = passengerRepository.save(Passenger(UUID.randomUUID(), "Jon Snow"))
-        val travelPassenger = TravelPassenger(passenger.id, passenger.name)
-        val travel = Travel(UUID.randomUUID(), "Origin", "Destination", travelPassenger, TravelStatus.CREATED, null)
-        val id = subject.save(travel).id
+        val passenger = passengerRepository.save(Passenger(null, "Jon Snow"))
+        val travelPassenger = TravelPassenger(passenger.id!!, passenger.name)
+        val travel = Travel(null, "Origin", "Destination", travelPassenger, TravelStatus.CREATED, null)
+        val travelId = subject.save(travel).id ?: throw RuntimeException("TravelId is null")
 
         // when
-        val result = subject.getById(id)
+        val result = subject.getById(travelId)
 
         // then
-        Assertions.assertEquals(id, result.id)
+        Assertions.assertEquals(travelId, result.id)
         Assertions.assertEquals("Origin", result.origin)
         Assertions.assertEquals("Destination", result.destination)
         Assertions.assertEquals(travelPassenger.id, result.passenger.id)
@@ -67,11 +67,13 @@ class TravelRepositoryTest {
 
     @Test
     fun whenFindTravelsByStatusThenReturnTravelsList() {
+        subject.deleteAll()
+
         // given
-        val passenger = passengerRepository.save(Passenger(UUID.randomUUID(), "Jon Snow"))
-        val travelPassenger = TravelPassenger(passenger.id, passenger.name)
-        subject.save(Travel(UUID.randomUUID(), "Origin1", "Destination1", travelPassenger, TravelStatus.CREATED, null))
-        subject.save(Travel(UUID.randomUUID(), "Origin2", "Destination2", travelPassenger, TravelStatus.CREATED, null))
+        val passenger = passengerRepository.save(Passenger(null, "Jon Snow"))
+        val travelPassenger = TravelPassenger(passenger.id!!, passenger.name)
+        subject.save(Travel(null, "Origin1", "Destination1", travelPassenger, TravelStatus.CREATED, null))
+        subject.save(Travel(null, "Origin2", "Destination2", travelPassenger, TravelStatus.CREATED, null))
 
         // when
         val result = subject.findByStatus(TravelStatus.CREATED)

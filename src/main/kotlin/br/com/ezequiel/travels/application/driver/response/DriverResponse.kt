@@ -19,9 +19,7 @@ data class DriverResponse(
 )
 
 fun Driver.toOutput() = DriverResponse(
-
-    id = id,
+    id = id!!,
     name = name,
     birthdate = birthdate
-
 )

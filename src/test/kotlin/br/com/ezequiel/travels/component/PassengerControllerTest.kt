@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
-import java.util.*
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase
@@ -54,7 +53,7 @@ class PassengerControllerTest {
 
     @Test
     fun whenUpdatePassengerThenReturnStatusNoContent() {
-        val passengerId = passengerRepository.save(Passenger(UUID.randomUUID(), "Ezequiel")).id
+        val passengerId = passengerRepository.save(Passenger(null, "Ezequiel")).id
         val updatePassengerJson = """{"name":"Juliano"}"""
         RestAssured
             .given()
@@ -67,7 +66,7 @@ class PassengerControllerTest {
 
     @Test
     fun whenDeletePassengerThenReturnStatusNoContent() {
-        val passengerId = passengerRepository.save(Passenger(UUID.randomUUID(), "Ezequiel")).id
+        val passengerId = passengerRepository.save(Passenger(null, "Ezequiel")).id
         RestAssured
             .given()
             .contentType(ContentType.JSON)
@@ -78,7 +77,7 @@ class PassengerControllerTest {
 
     @Test
     fun whenGetPassengerThenReturnStatusOkAndResponseBody() {
-        val passengerId = passengerRepository.save(Passenger(UUID.randomUUID(), "Ezequiel")).id
+        val passengerId = passengerRepository.save(Passenger(null, "Ezequiel")).id
         RestAssured
             .given()
             .contentType(ContentType.JSON)
@@ -91,7 +90,7 @@ class PassengerControllerTest {
 
     @Test
     fun whenListPassengersThenReturnStatusOkAndResponseBody() {
-        passengerRepository.save(Passenger(UUID.randomUUID(), "Ezequiel"))
+        passengerRepository.save(Passenger(null, "Ezequiel"))
         RestAssured
             .given()
             .contentType(ContentType.JSON)

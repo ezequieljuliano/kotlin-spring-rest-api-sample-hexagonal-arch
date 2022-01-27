@@ -19,7 +19,7 @@ class AcceptTravelService(
         val travel = travelRepository.getById(travelId)
         val driver = driverRepository.getById(driverId)
         travel.status = TravelStatus.ACCEPTED
-        travel.driver = TravelDriver(driver.id, driver.name)
+        travel.driver = TravelDriver(driver.id!!, driver.name)
         travelRepository.save(travel)
         return travel
     }

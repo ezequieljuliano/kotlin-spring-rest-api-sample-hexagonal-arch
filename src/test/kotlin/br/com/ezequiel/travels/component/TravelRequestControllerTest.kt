@@ -22,7 +22,6 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.ActiveProfiles
 import java.time.LocalDate
-import java.util.*
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestDatabase
@@ -54,9 +53,8 @@ class TravelRequestControllerTest {
 
     @Test
     fun whenCreateTravelRequestThenReturnStatusCreatedAndResponseBody() {
-        val passengerId = passengerRepository.save(Passenger(UUID.randomUUID(), "Ezequiel")).id
-        val createTravelRequestJson =
-            """ {"origin":"maravilha","destination":"campinas","passengerId":"$passengerId"} """
+        val passengerId = passengerRepository.save(Passenger(null, "Ezequiel")).id
+        val createTravelRequestJson = """ {"origin":"maravilha","destination":"campinas","passengerId":"$passengerId"} """
         RestAssured
             .given()
             .contentType(ContentType.JSON)
@@ -73,11 +71,11 @@ class TravelRequestControllerTest {
 
     @Test
     fun whenAcceptTravelRequestThenReturnStatusNoContent() {
-        val passenger = passengerRepository.save(Passenger(UUID.randomUUID(), "Jon Snow"))
-        val travelPassenger = TravelPassenger(passenger.id, passenger.name)
-        val travel = Travel(UUID.randomUUID(), "Origin", "Destination", travelPassenger, TravelStatus.CREATED, null)
+        val passenger = passengerRepository.save(Passenger(null, "Jon Snow"))
+        val travelPassenger = TravelPassenger(passenger.id!!, passenger.name)
+        val travel = Travel(null, "Origin", "Destination", travelPassenger, TravelStatus.CREATED, null)
         val travelId = travelRepository.save(travel).id
-        val driverId = driverRepository.save(Driver(UUID.randomUUID(), "Ezequiel", LocalDate.ofEpochDay(0))).id
+        val driverId = driverRepository.save(Driver(null, "Ezequiel", LocalDate.ofEpochDay(0))).id
         val driverTravelRequestJson = """{"driverId":"$driverId"}"""
         RestAssured
             .given()
@@ -90,12 +88,11 @@ class TravelRequestControllerTest {
 
     @Test
     fun whenRefuseTravelRequestThenReturnStatusNoContent() {
-        val passenger = passengerRepository.save(Passenger(UUID.randomUUID(), "Jon Snow"))
-        val travelPassenger = TravelPassenger(passenger.id, passenger.name)
-        val driver = driverRepository.save(Driver(UUID.randomUUID(), "Ezequiel", LocalDate.ofEpochDay(0)))
-        val travelDriver = TravelDriver(driver.id, driver.name)
-        val travel =
-            Travel(UUID.randomUUID(), "Origin", "Destination", travelPassenger, TravelStatus.ACCEPTED, travelDriver)
+        val passenger = passengerRepository.save(Passenger(null, "Jon Snow"))
+        val travelPassenger = TravelPassenger(passenger.id!!, passenger.name)
+        val driver = driverRepository.save(Driver(null, "Ezequiel", LocalDate.ofEpochDay(0)))
+        val travelDriver = TravelDriver(driver.id!!, driver.name)
+        val travel = Travel(null, "Origin", "Destination", travelPassenger, TravelStatus.ACCEPTED, travelDriver)
         val travelId = travelRepository.save(travel).id
         RestAssured
             .given()
@@ -107,9 +104,9 @@ class TravelRequestControllerTest {
 
     @Test
     fun whenListTravelRequestsThenReturnStatusOkAndResponseBody() {
-        val passenger = passengerRepository.save(Passenger(UUID.randomUUID(), "Jon Snow"))
-        val travelPassenger = TravelPassenger(passenger.id, passenger.name)
-        val travel = Travel(UUID.randomUUID(), "Origin", "Destination", travelPassenger, TravelStatus.CREATED, null)
+        val passenger = passengerRepository.save(Passenger(null, "Jon Snow"))
+        val travelPassenger = TravelPassenger(passenger.id!!, passenger.name)
+        val travel = Travel(null, "Origin", "Destination", travelPassenger, TravelStatus.CREATED, null)
         travelRepository.save(travel)
         RestAssured
             .given()

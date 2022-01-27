@@ -1,10 +1,10 @@
 package br.com.ezequiel.travels.application.travel
 
-import br.com.ezequiel.travels.application.travel.input.TravelDriverInput
-import br.com.ezequiel.travels.application.travel.input.TravelToCreateInput
-import br.com.ezequiel.travels.application.travel.input.toModel
-import br.com.ezequiel.travels.application.travel.output.TravelOutput
-import br.com.ezequiel.travels.application.travel.output.toOutput
+import br.com.ezequiel.travels.application.travel.request.TravelDriverRequest
+import br.com.ezequiel.travels.application.travel.request.TravelToCreateResponse
+import br.com.ezequiel.travels.application.travel.request.toModel
+import br.com.ezequiel.travels.application.travel.response.TravelResponse
+import br.com.ezequiel.travels.application.travel.response.toOutput
 import br.com.ezequiel.travels.domain.travel.AcceptTravel
 import br.com.ezequiel.travels.domain.travel.CreateTravel
 import br.com.ezequiel.travels.domain.travel.ListAvailableTravels
@@ -19,11 +19,7 @@ import java.util.stream.Collectors
 import javax.validation.Valid
 
 @RestController
-@RequestMapping(
-    path = ["/travel-requests"],
-    produces = [MediaType.APPLICATION_JSON_VALUE],
-    consumes = [MediaType.APPLICATION_JSON_VALUE]
-)
+@RequestMapping("/travel-requests")
 @Tag(name = "Travel Requests API", description = "Manage travel requests data")
 class TravelRequestController(
     private val acceptTravel: AcceptTravel,
@@ -32,21 +28,21 @@ class TravelRequestController(
     private val refuseTravel: RefuseTravel
 ) {
 
-    @GetMapping("/available")
+    @GetMapping("/available", produces = [MediaType.APPLICATION_JSON_VALUE])
     @Operation(description = "List all available travel requests")
-    fun listAvailableTravels(): List<TravelOutput> =
+    fun listAvailableTravels(): List<TravelResponse> =
         listAvailableTravels.execute().stream().map { it.toOutput() }.collect(Collectors.toList())
 
-    @PostMapping
+    @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseStatus(code = HttpStatus.CREATED)
     @Operation(description = "Create a new travel request")
-    fun createTravelRequest(@Valid @RequestBody travelToCreate: TravelToCreateInput) =
+    fun createTravelRequest(@Valid @RequestBody travelToCreate: TravelToCreateResponse) =
         createTravel.execute(travelToCreate.toModel()).toOutput()
 
-    @PutMapping("/{id}/accept")
+    @PutMapping("/{id}/accept", consumes = [MediaType.APPLICATION_JSON_VALUE])
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(description = "Driver accept a travel request")
-    fun acceptTravelRequest(@PathVariable("id") id: UUID, @Valid @RequestBody travelDriver: TravelDriverInput) {
+    fun acceptTravelRequest(@PathVariable("id") id: UUID, @Valid @RequestBody travelDriver: TravelDriverRequest) {
         acceptTravel.execute(id, travelDriver.driverId)
     }
 

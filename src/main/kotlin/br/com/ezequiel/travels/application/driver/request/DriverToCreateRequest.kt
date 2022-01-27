@@ -23,8 +23,6 @@ data class DriverToCreateRequest(
 )
 
 fun DriverToCreateRequest.toModel() = DriverToCreate(
-
     name = name,
     birthdate = birthdate
-
 )

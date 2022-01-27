@@ -15,7 +15,5 @@ data class PassengerToCreateRequest(
 )
 
 fun PassengerToCreateRequest.toModel() = PassengerToCreate(
-
     name = name
-
 )

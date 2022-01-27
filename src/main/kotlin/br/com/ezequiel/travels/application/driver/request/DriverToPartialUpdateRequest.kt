@@ -20,9 +20,7 @@ data class DriverToPartialUpdateRequest(
 )
 
 fun DriverToPartialUpdateRequest.toModel(id: UUID) = DriverToPartialUpdate(
-
     id = id,
     name = name,
     birthdate = birthdate
-
 )
